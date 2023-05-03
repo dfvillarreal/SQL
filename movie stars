@@ -1,0 +1,36 @@
+CREATE TABLE movie_stars (id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, amt_movies INTEGER, awards INTEGER);
+INSERT INTO movie_stars
+VALUES (1, "Jennifer", "Lawrence", 38, 1);
+INSERT INTO movie_stars
+VALUES (2, "Vince", "Vaughn", 52, 8);
+INSERT INTO movie_stars
+VALUES (3, "Jennifer", "Aniston", 49, 24);
+INSERT INTO movie_stars
+VALUES (4, "Adam", "Sandler", 61, 46);
+INSERT INTO movie_stars
+VALUES (5, "Drew", "Barrymoore", 60, 34);
+INSERT INTO movie_stars
+VALUES (6, "Johnny", "Depp", 69, 25);
+
+CREATE TABLE movies (movie_name TEXT, released_year INTEGER, movie_id INTEGER);
+INSERT INTO movies
+VALUES ("hunger_games", 2008, 1);
+INSERT INTO movies
+VALUES ("office_space", 1999, 3);
+INSERT INTO movies
+VALUES ("Pirates_of_the_carribean", 2003, 6);
+INSERT INTO movies
+VALUES ("Never_been_kissed", 1999, 5);
+INSERT INTO movies
+VALUES ("click", 2006, 4);
+INSERT INTO movies
+VALUES ("The_Iternship", 2013, 2);
+
+SELECT * FROM movie_stars;
+SELECT * FROM movies;
+
+SELECT first_name, last_name, movie_name FROM movie_stars
+    JOIN movies
+    ON id = movie_id
+    GROUP BY last_name
+    ORDER BY first_name;
