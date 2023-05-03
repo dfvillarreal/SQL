@@ -4,14 +4,14 @@ SELECT * FROM BIT_DB.customers WHERE length(order_id) = 6 AND order_id <> 'Order
 
 #1.How many orders were placed in January?
 SELECT COUNT(orderdate) FROM BIT_DB.JanSales
-  WHERE length(orderid) = 6 
-  AND orderid <> 'Order ID';
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID';
 
 #2. How many of those orders were for an iPhone?
 SELECT COUNT(Product) FROM BIT_DB.JanSales 
-  WHERE Product = 'iPhone'
-  AND length(orderid) = 6 
-  AND orderid <> 'Order ID';
+WHERE Product = 'iPhone'
+AND length(orderid) = 6 
+AND orderid <> 'Order ID';
 
 #3. Select the customer account numbers for all the orders that were placed in February.
 SELECT distinct order_id, orderID, acctnum FROM FebSales
@@ -25,15 +25,43 @@ SELECT Min(price), Product FROM JanSales;
 SELECT sum(quantity)*price as revenue,product
     FROM BIT_DB.JanSales
     GROUP BY product;
-#6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
-SELECT sum(Quantity),Product, sum(Quantity)*price as revenue, location 
-  FROM FebSales 
-  WHERE location='548 Lincoln St, Seattle, WA 98101';
+#6. Which products were sold in February at 548 Lincoln St, Seattle, WA 
+98101, how many of each were sold, and what was the total revenue?
+SELECT sum(Quantity),Product, sum(Quantity)*price as revenue, location FROM FebSales WHERE location
+='548 Lincoln St, Seattle, WA 98101';
 
-#7.How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+#7.How many customers ordered more than 2 products at a time in February, and 
+what was the average amount spent for those customers?
 SELECT COUNT(distinct acctnum),Avg(price*Quantity) FROM FebSales 
     LEFT JOIN customers
     ON orderid=order_id
     WHERE Quantity >2
     AND length(orderid) = 6
     AND orderid <> 'Order ID';
+    
+#8. List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, sum(Quantity) 
+    FROM FebSales
+    WHERE location LIKE '%Los Angeles%'
+    GROUP BY Product;
+    
+#9. OTHER
+SELECT orderdate
+    FROM FebSales
+    WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
+    
+SELECT location
+    FROM BIT_DB.FebSales 
+    WHERE orderdate = '02/18/19 01:35';
+    
+SELECT sum(Quantity)
+    FROM FebSales
+    WHERE orderdate like '02/18/19%';
+    
+SELECT distinct Product
+    FROM FebSales
+    WHERE Product like '%batteries%';
+    
+SELECT distinct Product, price
+    FROM FebSales
+    WHERE price like '%.99';
