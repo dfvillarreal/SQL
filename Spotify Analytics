@@ -1,0 +1,68 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL.
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+SELECT * FROM Spotifydata;
+
+#1. Who are the top 10 artists based on popularity?
+SELECT artist_name, MAX(popularity)
+    FROM spotifydata
+    GROUP BY artist_name
+    ORDER BY popularity DESC
+    LIMIT 10;
+    
+#2. What are the longest 15 songs? Sort them by popularity
+SELECT track_name as song, popularity, duration_ms as song_length
+    FROM spotifydata
+    GROUP BY duration_ms
+    ORDER BY popularity DESC
+    LIMIT 15;
+
+#3. What's the average danceability for the 10 most popular songs? 
+SELECT max(popularity), avg(danceability*popularity), track_name as track, artist_name as artist
+    FROM spotifydata
+    GROUP BY track_name
+    ORDER BY popularity DESC
+    LIMIT 10;
+
+#4. What is the avg speechiness, acousticness, and instrumentalness? 
+SELECT Count(track_name), avg(speechiness), avg(acousticness), avg(instrumentalness)
+    FROM spotifydata;
+
+#5. How many tracks belong to each artist? List them from most to least.
+SELECT COUNT(track_name), artist_name
+    FROM spotifydata
+    GROUP BY artist_name
+    ORDER BY COUNT(track_name) DESC;
+    
+#6. What is the avg popularity, danceability, and energy by artist and track?
+SELECT artist_name, track_name, avg(popularity), avg(danceability), avg(energy)
+    FROM spotifydata
+    GROUP BY artist_name, track_name;
+    
+    
