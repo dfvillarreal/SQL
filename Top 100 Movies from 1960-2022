@@ -1,0 +1,39 @@
+Top 100 Movies from 1960-2022
+
+SELECT * FROM Netflix;
+
+    #1. What are the top 10 Movies and what score did they recieve?
+    
+SELECT Score, "Movie Title"
+    FROM Netflix
+    LIMIT 10;
+
+    #2. What year was each movie released?
+    
+SELECT year, "movie title"
+    FROM netflix;
+
+    #3. Who was the director for each movie?
+    
+SELECT director, "movie title"
+    FROM netflix
+    ORDER BY director;
+
+    #4. Sort by the amount of movies each director directed  
+    
+SELECT COUNT(director) as amt_directed, director
+    FROM netflix
+    GROUP BY director 
+    ORDER BY director DESC
+
+    #5. What did the critics say about the top ten movies?
+    
+SELECT score, "critics consensus" as reviews, "movie title"as movie
+    FROM netflix
+    LIMIT 10;
+    
+#6. Who was the cast for the top 10 movies?
+
+SELECT "cast", "movie title", score
+    FROM netflix
+    LIMIT 10;
